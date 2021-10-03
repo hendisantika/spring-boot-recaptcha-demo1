@@ -1,5 +1,6 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.User;
 import com.hendisantika.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    public void createUser(User user) {
+        userRepository.save(user);
+    }
 }
