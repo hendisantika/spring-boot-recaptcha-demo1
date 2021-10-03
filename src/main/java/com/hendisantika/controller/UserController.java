@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-recaptcha-demo1
@@ -50,4 +52,12 @@ public class UserController {
         }
         return "registerUser";
     }
+
+    @GetMapping
+    public String getAllUsers(Model model) {
+        List<User> userList = userService.getAllUsers();
+        model.addAttribute("userList", userList);
+        return "listUsers";
+    }
+
 }
