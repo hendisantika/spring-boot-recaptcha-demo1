@@ -38,7 +38,7 @@ public class UserController {
         return "registerUser";
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public String saveUser(
             @ModelAttribute User user,
             Model model
