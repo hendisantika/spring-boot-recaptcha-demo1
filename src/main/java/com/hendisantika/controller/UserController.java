@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -29,6 +31,23 @@ public class UserController {
         User user = new User();
         getCaptcha(user);
         model.addAttribute("user", user);
+        return "registerUser";
+    }
+
+    @PostMapping("/save")
+    public String saveUser(
+            @ModelAttribute User user,
+            Model model
+    ) {
+        if (user.getCaptcha().equals(user.getHiddenCaptcha())) {
+            userService.createUser(user);
+            model.addAttribute("message", "User Registered successfully!");
+            return "redirect:allUsers";
+        } else {
+            model.addAttribute("message", "Invalid Captcha");
+            getCaptcha(user);
+            model.addAttribute("user", user);
+        }
         return "registerUser";
     }
 }
