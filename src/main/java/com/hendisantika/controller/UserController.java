@@ -46,7 +46,7 @@ public class UserController {
         if (user.getCaptcha().equals(user.getHiddenCaptcha())) {
             userService.createUser(user);
             model.addAttribute("message", "User Registered successfully!");
-            return "redirect:allUsers";
+            return "redirect:/users";
         } else {
             model.addAttribute("message", "Invalid Captcha");
             getCaptcha(user);
