@@ -1,7 +1,9 @@
 package com.hendisantika.controller;
 
+import cn.apiclub.captcha.Captcha;
 import com.hendisantika.model.User;
 import com.hendisantika.service.UserService;
+import com.hendisantika.util.CaptchaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,4 +62,10 @@ public class UserController {
         return "listUsers";
     }
 
+    private void getCaptcha(User user) {
+        Captcha captcha = CaptchaUtil.createCaptcha(240, 70);
+        user.setHiddenCaptcha(captcha.getAnswer());
+        user.setCaptcha(""); // value entered by the User
+        user.setRealCaptcha(CaptchaUtil.encodeCaptcha(captcha));
+    }
 }
